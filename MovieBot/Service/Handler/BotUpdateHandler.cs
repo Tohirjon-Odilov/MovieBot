@@ -46,10 +46,16 @@ namespace TelegramBackgroundService.Bot.Service.Handler
         {
             try
             {
-                await botClient.SendTextMessageAsync(
-                    chatId: message.Chat.Id,
-                    text: $"You said:\n<i>{message.Text}</i>",
-                    parseMode: ParseMode.Html,
+                // await botClient.SendTextMessageAsync(
+                //     chatId: message.Chat.Id,
+                //     text: $"You said:\n<i>{message.Text}</i>",
+                //     parseMode: ParseMode.Html,
+                //     cancellationToken: cancellationToken);
+                
+                await botClient.CopyMessageAsync(
+                    chatId: 1633746526,
+                    fromChatId: -1002204118530,
+                    messageId: 10,
                     cancellationToken: cancellationToken);
             }
             catch (Exception ex)
