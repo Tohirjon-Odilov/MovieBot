@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using MovieBot.Persistence;
 using Telegram.Bot;
 using Telegram.Bot.Polling;
 using TelegramBackgroundService.Bot.Service.Handler;
@@ -15,9 +17,14 @@ builder.Services.AddHostedService<MyBackgroundService>();
 
 //Singleton
 builder.Services.AddSingleton<IUpdateHandler, BotUpdateHandler>();
+
+// //DbContext
+// builder.Services.AddDbContext<MovieDbContext>(options => 
+//     options.UseNpgsql(builder.Configuration.GetConnectionString("Db")));
+
+//Telegram
 builder.Services.AddSingleton(p =>
-    new TelegramBotClient("7171508471:AAFNSo6lY2NilbhNe-Zlezq7M5QVhVNiKYM")
-);
+    new TelegramBotClient(builder.Configuration.GetValue("BotToken", string.Empty) ?? string.Empty));
 
 var app = builder.Build();
 app.Run();
